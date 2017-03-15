@@ -1,39 +1,38 @@
 var EntityList = {};
-function Entity(et) {
+function Entity(x,y, tint, size, arrayX, arrayY) {
     this.x = et.x;
     this.y = et.y;
-    this.id = et.id;
-    this.sprite = game.add.sprite(et.x * 32, et.y * 32, et.name);
-    this.sprite.animations.add('right', [8,6,7],15,false);
-    this.sprite.animations.add('left',  [5,3,4],15,false);
-    this.sprite.animations.add('up',  [11,9,10],15,false);
-    this.sprite.animations.add('down',  [2,0,1],15,false);
+    this.tint = tint;
+    this.size = size;
+
     this.sprite.tint = et.color;
     
-    //self.sprite.visible = true;
+    this.path = [];
+    for(var i = 0; i < (arrayX.lenght -1); i++) {
+        var distance = 
+        var timeGap = (240 * )/ 240.0f
+        for(var t = 0, t < maxT, t+= timeGap)
+    }
+    
+    this.graphic = game.add.graphic(x,y);
+    this.graphic.lineStyle(0);
+    this.graphic.beginFill(tint);
+    this.graphic.drawRect(0, 0,size, size);
+    this.graphic.endFill();
+    
+    this.vel = 0;
+    
 };
 
 Entity.prototype.move = function (x, y) {
-    if(this.x != x) {
-        if(x>this.x){
-            this.sprite.animations.play('right');
-        }
-        if(x<this.x){
-            this.sprite.animations.play('left');
-        }
-        game.add.tween(this.sprite).to({x : x * 32}, 100, "Linear", true);
-    }
-    if(this.y != y) {
-        if(y>this.y){
-            this.sprite.animations.play('down');
-        }
-        if(y<this.y){
-            this.sprite.animations.play('up');
-        }
-        game.add.tween(this.sprite).to({y : y * 32}, 100, "Linear", true);
-    }
+
+    this.graphic.x = x;
+    this.graphic.y = y;
     this.x = x;
     this.y = y;                            
 };
 
-
+Entity.prototype.update = function()
+{
+    
+}

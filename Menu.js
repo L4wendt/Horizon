@@ -12,9 +12,9 @@ AppStates.MenuScreen = function () {
 }
 
 AppStates.MenuScreen.prototype.create = function() {
-    game.stage.backgroundColor = "#B7D3AA";
+    game.stage.backgroundColor = "#6F657F";
     
-    this.title = game.add.text(game.world.centerX, 20, "Rabit Hole");
+    this.title = game.add.text(game.world.centerX, 20, "Horizon");
     this.title.anchor.set(0.5,0);
     this.title.font = fontname;
     this.title.fontSize = 60;
