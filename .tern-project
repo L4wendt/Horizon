@@ -1,0 +1,8 @@
+{
+  "libs": ["browser"],
+  "plugins" : {
+ 	"phaser" : {},
+ 	"doc_comment": {}
+  }
+  { "max-file-size": 3000000 } 
+}
