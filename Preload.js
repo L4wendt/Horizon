@@ -49,7 +49,7 @@ AppStates.loadState.prototype.preload = function() {
     if(this.waitForFont)
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     
-    
+    game.load.image("bg", "./asset/img/BG.png");
    
    /* game.load.image("brick", "./client/asset/img/brick.png");
     game.load.image("rabbitHole", "./client/asset/img/rabbitHole.png");
