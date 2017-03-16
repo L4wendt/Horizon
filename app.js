@@ -13,4 +13,4 @@ var AppStates  = {
     room : "",
 };
 
-var fontname = 'Press Start 2P';
+var fontname = 'Merriweather';

@@ -15,11 +15,10 @@ WebFontConfig = {
 
     //  The Google Fonts we want to load (specify as many as you like in the array)
     google: {
-      families: ['Press Start 2P']
+      families: ['Merriweather']
     }
 
 };
-
 
 AppStates.bootState =  function(){
     this.progressBar;
@@ -27,20 +26,11 @@ AppStates.bootState =  function(){
 }
 
 AppStates.bootState.prototype.preload = function () {   
-    game.stage.setBackgroundColor(0x1C053F);
+    game.stage.setBackgroundColor(0x6F657F);
     game.stage.disableVisibilityChange = true;
-    game.load.image("progressBar", "./client/asset/img/loadbar.png");
-    
     //show percentage   
     this.progress = this.game.add.text(this.game.world.centerX, this.game.world.centerY-30, '0%', {fill: 'white'});    this.progress.anchor.setTo(.5,.5);        
-    //show progress bar
-    
-    /*
-    this.progressBar = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, "progressBar");
-    this.progressBar.anchor.setTo(0.5, 0.5);
 
-    game.load.setPreloadSprite( this.progressBar);
-    */
     game.load.onFileComplete.add(this.fileComplete, this); 
     game.time.advancedTiming = true;
     game.state.start("load");
@@ -49,7 +39,6 @@ AppStates.bootState.prototype.preload = function () {
 AppStates.bootState.prototype.fileComplete = function (progress, cacheKey, success, totalLoaded, totalFiles) {  
     this.progress.text = progress+"%";
 };
-
 
 AppStates.loadState = function(){
     this.waitForFont = true;
@@ -60,8 +49,6 @@ AppStates.loadState.prototype.preload = function() {
     if(this.waitForFont)
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     
-    //Enable Plugins Here//
-    game.add.plugin(Fabrique.Plugins.InputField);
     
    
    /* game.load.image("brick", "./client/asset/img/brick.png");
@@ -79,7 +66,6 @@ AppStates.loadState.prototype.preload = function() {
 */
    
 }
-
 
 AppStates.loadState.prototype.create = function() {
     var progress = this.game.add.text(this.game.world.centerX, this.game.world.centerY-30, '100%', {fill: 'white'});   
