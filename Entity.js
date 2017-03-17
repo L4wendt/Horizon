@@ -1,15 +1,17 @@
 var EntityList = {};
-function Entity(x,y, tint, size) {
+function Entity(x,y, spr, tint) {
     
     this.x = x;
     this.y = y;
     this.tint = tint;
-    this.size = size;
+    this.graphic = game.add.sprite(x,y,spr);
+    this.graphic.tint = tint;
     
     
-    
-   
-    this.bmp = game.add.bitmapData(size, size);
+    /*
+     
+     // Bitmap
+     this.bmp = game.add.bitmapData(size, size);
     
     var grd = this.bmp.context.createLinearGradient(0,0,0,size);
     if(tint != null){
@@ -23,14 +25,16 @@ function Entity(x,y, tint, size) {
     this.bmp.context.fillRect(0,0,size,size);
     this.graphic = game.add.sprite(x,y,this.bmp);
       
-    
-    /*
+    // Graphic
+  
     this.graphic = game.add.graphics(x,y);
     this.graphic.lineStyle(0);
     this.graphic.beginFill(tint);
     this.graphic.drawRect(0, 0,size, size);
     this.graphic.endFill();
       */
+    
+    
     this.vel = 0;
     this.pos = 0;
     
@@ -60,14 +64,14 @@ Entity.prototype.update = function()
 
     if(this.vel != 0){
         this.pos += this.vel;
-        if(this.pos >= this.path.length){
-            this.pos = 0;
+        if(this.path != null){
+    
+            if(this.pos >= this.path.length){
+                this.pos = 0;
+            }
+            
+            this.move(this.path[Math.floor(this.pos)].x, this.path[Math.floor(this.pos)].y);
         }
-        // if(this.pos >= 640){
-        //    this.pos = 0;
-        //}
-        this.move(this.pos, this.y);
-        this.move(this.path[Math.floor(this.pos)].x, this.path[Math.floor(this.pos)].y);
     }
 
 }

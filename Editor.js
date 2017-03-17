@@ -1,8 +1,8 @@
-AppStates.Game = function () {
+AppStates.Editor = function () {
 
 };
 
-AppStates.Game.prototype.create = function () {
+AppStates.Editor.prototype.create = function () {
    
     game.time.advancedTiming = true;
     game.time.desiredFps = 60;
@@ -17,38 +17,36 @@ AppStates.Game.prototype.create = function () {
     
     this.player = new Entity(game.world.centerX, game.world.centerY, "cube", 0x3E4B6D);
     
-    x = [-60,20,80,100,160,300,320,360,380,440,460,580,500,600,700];
-    y = [268,328,148,148,288,368,368,228,228,228,228,208,348,348,288];
-    
-    
-/*    for(var i = 0; i < x.length; i++){
-        x[i] = (x[i] + 60) * 2;
-        y[i] = y[i];
-    }
-  */  
-    
-    this.player.setPath(x,y,1/100.0);
     this.player.vel = 0.5;
-
+    game.input.onTap.add(addPoint, this);
 };
 
-AppStates.Game.prototype.render = function() {
+AppStates.Editor.prototype.render = function() {
     
 	
 }
 
-AppStates.Game.prototype.update = function () {
+AppStates.Editor.prototype.update = function () {
     
     game.debug.text(game.time.fps, 2, 14, "#00ff00");
     
     this.player.update()
+
     if(this.inputs.esc.isDown) {
         this.player.pos = 0;
     }
     
+     if (this.inputs.left.isDown)
+    {
+        game.camera.x -= 4;
+    }
+    else if (this.inputs.right.isDown)
+    {
+        game.camera.x += 4;
+    }
+    
 };
 
-AppStates.Game.prototype.render = function () {
-    //game.debug.text("inGame", 100, 100);
-};
-
+AppStates.Editor.prototype.addPoint() = function() {
+    this.path.AddPoint(game.input.x, game.input.y);
+}
