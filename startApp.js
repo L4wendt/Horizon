@@ -6,6 +6,5 @@ game.state.add("game", AppStates.Game);
 game.state.add("error", AppStates.Error);
 
 
-//game.state.add("waitStart", AppStates.WaitStart);
-
 game.state.start("boot");
+

@@ -6,11 +6,21 @@ Array.prototype.remove = function (from, to) {
 };*/
 
 
-var game = new Phaser.Game(640, 480, Phaser.AUTO);
+var game = new Phaser.Game(960, 640, Phaser.AUTO);
 
 var AppStates  = {
     readySocket : false,
     room : "",
+    goFull: function() {
+        if (game.scale.isFullScreen)
+        {
+            game.scale.stopFullScreen();
+        }
+        else
+        {
+            game.scale.startFullScreen(false);
+        }
+    }
 };
 
 var fontname = 'Merriweather';
