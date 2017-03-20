@@ -53,8 +53,8 @@ Entity.prototype.move = function (x, y) {
 Entity.prototype.setPath = function(arrayX,arrayY, slice) {
     this.path = [];
     for(var i = 0; i < 1; i+=slice) {
-        x = game.math.bezierInterpolation(arrayX,i);
-        y = game.math.bezierInterpolation(arrayY, i);
+        x = game.math.catmullRomInterpolation(arrayX,i);
+        y = game.math.catmullRomInterpolation(arrayY, i);
         this.path.push({x:x, y:y})
     }
 }

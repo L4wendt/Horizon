@@ -6,12 +6,16 @@ function Path(sizeX, sizeY) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
     this.spr = [];
+    this.deleteButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+    this.wasUpdated = false;
 }
 
 Path.prototype.AddPoint = function(x,y) {
     this.x.push(x);
     this.y.push(y);
-    this.spr.push( game.add.sprite(x,y,"point"));
+    this.spr.push( game.add.sprite(x,y,"dot"));
+    this.spr[this.spr.length -1].pivot.x = 15;
+    this.spr[this.spr.length -1].pivot.y = 15;
     this.spr[this.spr.length -1].inputEnabled = true;
     this.spr[this.spr.length -1].input.enableDrag(true);
     this.spr[this.spr.length -1].events.onDragUpdate.add(this.onDragUpdate, this, {i:this.x.length-1});
@@ -20,15 +24,20 @@ Path.prototype.AddPoint = function(x,y) {
 }
 
 Path.prototype.RemovePoint = function(i) {
-    this.x = this.x.splice(i,1);
-    this.y = this.y.splice(i,1);
-    this.spr = this.spr.splice(i,1);
+    console.log(this.x);
+
+    this.x.splice(i,1);
+    this.y.splice(i,1);
+    this.spr[i].destroy();
+    this.spr.splice(i,1);
     
     this.plot();
+    
+    console.log(this.x);
 }
 
 Path.prototype.plot = function() {
-    
+    this.wasUpdated = true;
     this.bmd.clear();
 
     var x = 1 / game.width;
@@ -49,6 +58,7 @@ Path.prototype.plot = function() {
 }
 
 Path.prototype.onDragUpdate = function(sprite, pointer, dragX, dragY, snapPoint) {
+   
     var tid = -1
     for (var i = 0; i < this.spr.length; i++){
         if(this.spr[i] == sprite){
@@ -56,8 +66,17 @@ Path.prototype.onDragUpdate = function(sprite, pointer, dragX, dragY, snapPoint)
             break;
         }
     }
+    if(tid == this.spr.length || tid == -1)
+        return;
     
-    this.x[tid] = sprite.x;
-    this.y[tid] = sprite.y;
+    if(this.deleteButton.isDown) {
+        this.RemovePoint(tid);
+    }
+    else {
+        this.x[tid] = sprite.x;
+        this.y[tid] = sprite.y;
+    }
+    
+  
     this.plot();
 }

@@ -50,7 +50,9 @@ AppStates.loadState.prototype.preload = function() {
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     
     game.load.image("bg", "./asset/img/BG.png");    
-    game.load.image("cube", "./asset/img/cube60.png");
+    game.load.image("cube", "./asset/img/cube60.png");    
+    game.load.image("dot", "./asset/img/dot.png");
+
 
    
    /* game.load.image("brick", "./client/asset/img/brick.png");

@@ -17,7 +17,7 @@ AppStates.Editor.prototype.create = function () {
     this.inputs.left = game.input.keyboard.addKey(Phaser.Keyboard.A);
     this.inputs.esc = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
     this.inputs.space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    
+    this.inputs.printButton = game.input.keyboard.addKey(Phaser.Keyboard.C);
     this.background = game.add.sprite(0,0,"bg");
     
     this.player = new Entity(960/2, 640/2, "cube", 0x3E4B6D);
@@ -42,7 +42,12 @@ AppStates.Editor.prototype.update = function () {
     
     this.player.update()
 
-    if(this.inputs.esc.isDown) {
+    if(this.path.wasUpdated){
+        this.path.wasUpdated = false;
+        this.player.setPath(this.path.x,this.path.y,1/100);
+    }
+    if(this.inputs.space.isDown) {
+        
         this.player.pos = 0;
     }
     
@@ -57,6 +62,13 @@ AppStates.Editor.prototype.update = function () {
         this.background.x = game.camera.x;
     }
     
+    if(this.inputs.printButton.isDown) {
+        console.log("Path: ");
+        console.log(this.path.x);
+        console.log(this.path.y);
+        console.log("-End Path");
+
+    }
 };
 
 AppStates.Editor.prototype.addPoint = function() {
