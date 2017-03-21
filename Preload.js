@@ -41,7 +41,7 @@ AppStates.bootState.prototype.fileComplete = function (progress, cacheKey, succe
 };
 
 AppStates.loadState = function(){
-    this.waitForFont = true;
+    this.waitForFont = false;
 }
 
 AppStates.loadState.prototype.preload = function() {
@@ -82,6 +82,6 @@ AppStates.loadState.prototype.create = function() {
 AppStates.loadState.prototype.update = function () {
     
     if(AppStates.waitFont || !this.waitForFont) {
-        game.state.start("editor");
+        game.state.start("game");
     }
 }

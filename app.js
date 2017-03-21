@@ -24,3 +24,7 @@ var AppStates  = {
 };
 
 var fontname = 'Merriweather';
+
+function Lerp(xi,xf, t) {
+    return xi + (xf - xi) * t;
+}

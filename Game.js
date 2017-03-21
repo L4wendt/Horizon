@@ -8,27 +8,26 @@ AppStates.Game.prototype.create = function () {
     game.time.desiredFps = 60;
     
     this.inputs = { right : {}, left : {}, esc : {}, space : {}};
-    this.inputs.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
-    this.inputs.left = game.input.keyboard.addKey(Phaser.Keyboard.A);
     this.inputs.esc = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
     this.inputs.space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
  
     this.background = game.add.sprite(0,0,"bg");
     
-    this.player = new Entity(game.world.centerX, game.world.centerY, "cube", 0x3E4B6D);
+    this.player = new Entity(960/2+90, 640/2, "cube", 0x3E4B6D);
+    this.player.graphic.pivot.x = 30;
+    this.player.graphic.pivot.y = 30;
+
+    this.target = game.add.sprite(960/2+90,640/2, "cube");
+    this.target.tint = 0xFFFFFF
+    this.target.pivot.x = 30;
+
+   
+    this.currentScene = sceneOneOne;
+    this.currentScene.start(this.target, this.player);
     
-    x = [-60,20,80,100,160,300,320,360,380,440,460,580,500,600,700];
-    y = [268,328,148,148,288,368,368,228,228,228,228,208,348,348,288];
-    
-    
-/*    for(var i = 0; i < x.length; i++){
-        x[i] = (x[i] + 60) * 2;
-        y[i] = y[i];
-    }
-  */  
-    
-    this.player.setPath(x,y,1/100.0);
-    this.player.vel = 0.5;
+    this.pause = false;
+    game.camera.follow(this.target, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+
 
 };
 
@@ -41,11 +40,18 @@ AppStates.Game.prototype.update = function () {
     
     game.debug.text(game.time.fps, 2, 14, "#00ff00");
     
-    this.player.update()
     if(this.inputs.esc.isDown) {
-        this.player.pos = 0;
+        this.pause = !this.pause;
     }
     
+    if(!this.pause) {
+        if(this.currentScene != null)
+            this.currentScene.update();
+    }
+    
+    this.background.x = game.camera.x;
+    this.background.y = game.camera.y;
+
 };
 
 AppStates.Game.prototype.render = function () {
