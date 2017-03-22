@@ -10,6 +10,12 @@ function Path(sizeX, sizeY) {
     this.wasUpdated = false;
 }
 
+Path.prototype.AddArray = function(aar) {
+    for (var i = 0; i < aar.x.length; i++) {
+        this.AddPoint(aar.x[i],aar.y[i]);
+    }
+}
+
 Path.prototype.AddPoint = function(x,y) {
     this.x.push(x);
     this.y.push(y);

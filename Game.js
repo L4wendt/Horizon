@@ -20,12 +20,12 @@ AppStates.Game.prototype.create = function () {
     this.target = game.add.sprite(960/2+90,640/2, "target");
     this.target.pivot.x = 30;
 
-   
+
     this.currentScene = sceneOneOne;
-    this.currentScene.start(this.target, this.player);
+    this.currentScene.start(this.target, this.player, this);
     
     this.pause = false;
-    game.camera.follow(this.target, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+ 
     
     this.renderingGroup = game.add.group();
     this.renderingGroup.add(this.player.graphic);
@@ -36,14 +36,9 @@ AppStates.Game.prototype.create = function () {
 
 };
 
-AppStates.Game.prototype.render = function() {
-    
-	
-}
-
 AppStates.Game.prototype.update = function () {
     
-    game.debug.text(game.time.fps, 2, 14, "#00ff00");
+   // game.debug.text(game.time.fps, 2, 14, "#00ff00");
     
     if(this.inputs.esc.isDown) {
         this.pause = !this.pause;
@@ -56,12 +51,28 @@ AppStates.Game.prototype.update = function () {
     
     this.background.x = game.camera.x;
     this.background.y = game.camera.y;
+
+};
+
+AppStates.Game.prototype.nextScene = function(scene){
+    this.currentScene.end();
+    game.camera.flash(0x000000,1000,true);
+    this.currentScene = scene;
+    game.time.events.add(900, this.nextScenept2, this);
+
+}
+
+
+AppStates.Game.prototype.nextScenept2 = function() {
+    if(this.currentScene != null)
+        this.currentScene.start(this.target, this.player, this);
     
+    this.renderingGroup.destroy(false);
+    this.renderingGroup = game.add.group();
+    this.renderingGroup.add(this.player.graphic);
+}
 
 
-};
 
-AppStates.Game.prototype.render = function () {
-    //game.debug.text("inGame", 100, 100);
-};
+
 

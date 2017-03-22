@@ -51,7 +51,7 @@ Entity.prototype.move = function () {
     }
     else {
         x = this.path[f].x + (this.path[f+1].x - this.path[f].x) * t;
-        y = this.path[f].y + (this.path[f+1].y - this.path[f].y) * t
+        y = this.path[f].y + (this.path[f+1].y - this.path[f].y) * t;
     }
     
     this.graphic.x = x;
@@ -79,7 +79,17 @@ Entity.prototype.setPath = function(arrayX,arrayY, slice) {
    
        
     }
-     this.move(this.path[0].x, this.path[0].y);
+    if(!this.debugMode) {
+        if(this.path != null){
+            if(this.path.length > 1){
+                this.pos = 0;
+                this.move();
+            }
+        }
+    }
+   
+                
+    
 }
 
 Entity.prototype.update = function()
@@ -88,7 +98,7 @@ Entity.prototype.update = function()
     if(this.vel != 0){
         this.pos += this.vel * game.time.physicsElapsed ;
         if(this.path != null){
-            if(this.path.length == 0 || this.path.lengt == 0)
+            if(this.path.length == 0)
                 return;
         
             if(this.pos >= this.path.length){
