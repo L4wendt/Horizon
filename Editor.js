@@ -8,6 +8,7 @@ AppStates.Editor.prototype.create = function () {
     
     game.world.setBounds(0, 0, 3840, 1280);
     
+
     
     game.time.advancedTiming = true;
     game.time.desiredFps = 60;
@@ -20,15 +21,29 @@ AppStates.Editor.prototype.create = function () {
     this.inputs.printButton = game.input.keyboard.addKey(Phaser.Keyboard.C);
     this.background = game.add.sprite(0,0,"bg");
     
-    this.player = new Entity(960/2, 640/2, "cube", 0x3E4B6D);
+    this.bgWorld = game.add.sprite(-480,0,"OneOne");
+    game.world.setBounds(-480, 0, this.bgWorld.width, this.bgWorld.height);
+      
+    this.target = game.add.sprite(960/2+90,640/2, "target");
+    this.target.pivot.x = 30;
     
-    this.player.vel = 0.5;
-    game.input.onTap.add(this.handleTap, this);
-    
-    this.path = new Path(3840,1280);
-    
+ 
+
 
     
+    this.player = new Entity(960/2, 640/2, "cube", 0x3E4B6D);
+    this.player.graphic.pivot.x = 30;
+    this.player.graphic.pivot.y = 30;
+    
+   
+    game.input.onTap.add(this.handleTap, this);
+    
+    this.path = new Path(this.bgWorld.width, this.bgWorld.height);
+    
+    this.follow = false;
+    
+  
+
 };
 
 AppStates.Editor.prototype.render = function() {
@@ -37,31 +52,52 @@ AppStates.Editor.prototype.render = function() {
 }
 
 AppStates.Editor.prototype.update = function () {
-
+    this.background.x = game.camera.x;
     game.debug.text(game.time.fps, 2, 14, "#00ff00");
     
     this.player.update()
 
     if(this.path.wasUpdated){
         this.path.wasUpdated = false;
-        this.player.setPath(this.path.x,this.path.y,1/100);
+        this.player.setPath(this.path.x,this.path.y,1/300);
     }
     if(this.inputs.space.isDown) {
-        
-        this.player.pos = 0;
+        this.follow = !this.follow;
+        if(this.follow) {
+            game.camera.follow(this.target, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+        }
+        else{
+            game.camera.unfollow();
+        }
     }
     
-     if (this.inputs.left.isDown)
-    {
-        game.camera.x -= 4;
-        this.background.x = game.camera.x;
+    if(this.follow) {
+        if(this.inputs.left.isDown) {
+            this.target.x = this.player.x - 30;
+            this.player.vel = -1;
+        }
+        else if(this.inputs.right.isDown){
+            this.target.x = this.player.x + 90;
+            this.player.vel = 1;
+        }
+        else {
+            this.target.x = this.player.x + 30;
+            this.player.vel = 0;
+        }
     }
-    else if (this.inputs.right.isDown)
-    {
-        game.camera.x += 4;
-        this.background.x = game.camera.x;
+    else {
+        if (this.inputs.left.isDown)
+        {
+            game.camera.x -= 4;
+            
+        }
+        else if (this.inputs.right.isDown)
+        {
+            game.camera.x += 4;
+            this.background.x = game.camera.x;
+        }
     }
-    
+
     if(this.inputs.printButton.isDown) {
         console.log("Path: ");
         console.log(this.path.x);

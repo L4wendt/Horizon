@@ -38,12 +38,22 @@ function Entity(x,y, spr, tint) {
     this.vel = 0;
     this.pos = 0;
     
-
-    
+    this.debugMode = false;
+    this.hasEnded = false;
 };
 
-Entity.prototype.move = function (x, y) {
-
+Entity.prototype.move = function () {
+    var f = Math.floor(this.pos)
+    var t = this.pos - f;
+    if(this.pos >= (this.path.length-1)){
+        x = this.path[f].x;
+        y = this.path[f].y;
+    }
+    else {
+        x = this.path[f].x + (this.path[f+1].x - this.path[f].x) * t;
+        y = this.path[f].y + (this.path[f+1].y - this.path[f].y) * t
+    }
+    
     this.graphic.x = x;
     this.graphic.y = y;
     this.x = x;
@@ -52,25 +62,53 @@ Entity.prototype.move = function (x, y) {
 
 Entity.prototype.setPath = function(arrayX,arrayY, slice) {
     this.path = [];
-    for(var i = 0; i < 1; i+=slice) {
-        x = game.math.catmullRomInterpolation(arrayX,i);
-        y = game.math.catmullRomInterpolation(arrayY, i);
-        this.path.push({x:x, y:y})
+    var timeBetweenPoints = 1 / (arrayX.length -1); 
+    var currentPoint = 0;
+    for(var i = 0; i < (arrayX.length-1); i+=1) {
+        var sliceSize = Math.sqrt(Math.pow(arrayX[i+1] - arrayX[i],2)+Math.pow(arrayY[i+1] - arrayY[i],2));
+        sliceSize /= 6;
+        sliceSize = timeBetweenPoints / sliceSize;
+        
+        for(var j = 0; j < timeBetweenPoints; j+=sliceSize) {
+            currentPoint += sliceSize;
+            x = game.math.catmullRomInterpolation(arrayX, currentPoint);
+            y = game.math.catmullRomInterpolation(arrayY, currentPoint);
+             this.path.push({x:x, y:y})
+        }
+        
+   
+       
     }
+     this.move(this.path[0].x, this.path[0].y);
 }
 
 Entity.prototype.update = function()
 {
 
     if(this.vel != 0){
-        this.pos += this.vel;
+        this.pos += this.vel * game.time.physicsElapsed ;
         if(this.path != null){
-    
+            if(this.path.length == 0 || this.path.lengt == 0)
+                return;
+        
             if(this.pos >= this.path.length){
-                this.pos = 0;
+              
+                if(this.debugMode)
+                    this.pos = 0;
+                else {
+                    this.hasEnded = true;
+                   
+                    this.pos = this.path.length -1;
+                }
+            }
+            if(this.pos < 0){
+                if(this.debugMode)
+                    this.pos = this.path.length -1;
+                else
+                    this.pos = 0;
             }
             
-            this.move(this.path[Math.floor(this.pos)].x, this.path[Math.floor(this.pos)].y);
+            this.move();
         }
     }
 

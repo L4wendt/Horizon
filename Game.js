@@ -17,8 +17,7 @@ AppStates.Game.prototype.create = function () {
     this.player.graphic.pivot.x = 30;
     this.player.graphic.pivot.y = 30;
 
-    this.target = game.add.sprite(960/2+90,640/2, "cube");
-    this.target.tint = 0xFFFFFF
+    this.target = game.add.sprite(960/2+90,640/2, "target");
     this.target.pivot.x = 30;
 
    
@@ -27,6 +26,12 @@ AppStates.Game.prototype.create = function () {
     
     this.pause = false;
     game.camera.follow(this.target, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+    
+    this.renderingGroup = game.add.group();
+    this.renderingGroup.add(this.player.graphic);
+    //this.renderingGroup.add(this.currentScene.bgWorld);   
+   //this.renderingGroup.add(this.player);
+  
 
 
 };
@@ -51,6 +56,8 @@ AppStates.Game.prototype.update = function () {
     
     this.background.x = game.camera.x;
     this.background.y = game.camera.y;
+    
+
 
 };
 

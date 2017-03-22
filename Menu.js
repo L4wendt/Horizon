@@ -6,7 +6,7 @@ AppStates.MenuScreen.prototype.create = function() {
     game.stage.backgroundColor = "#6F657F";
     //"#6F657F"
     game.state.start("game");
-    this.title = game.add.text(game.world.centerX, 20, "Horizon");
+    this.title = game.add.text(game.world.centerX, 20, "Passo");
     this.title.anchor.set(0.5,0);
     this.title.font = fontname;
     this.title.fontSize = 60;
