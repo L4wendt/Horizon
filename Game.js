@@ -24,7 +24,7 @@ AppStates.Game.prototype.create = function () {
     this.target.pivot.x = 30;
 
 
-    this.currentScene = sceneThreeTwo;
+    this.currentScene = sceneFourThree;
     this.currentScene.start(this.target, this.player, this);
     
     this.pause = false;
@@ -57,7 +57,6 @@ AppStates.Game.prototype.update = function () {
     }
     
     this.background.x = game.camera.x;
-    this.background.y = game.camera.y;
 
 };
 

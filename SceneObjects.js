@@ -1,11 +1,111 @@
 // Em ordem inversa de aparição
 
+// 4.3
+
+pathFourThree = {x:[30, 176, 336, 470, 588, 680, 750, 820, 872, 937, 971], y:[1200, 1217, 1162, 1093, 1021, 933, 843, 766, 719, 691, 689]};
+sceneFourThree = new Scene(pathFourThree,"ThreeTwo");
+sceneFourThree.targetFollowPlayer = true;
+sceneFourThree.followTarget = false;
+sceneFourThree.timeToEndAfterEndedPath = 1;
+
+sceneFourThree.AdditionalStart = function(){
+    game.camera.y = 960;
+    
+    this.other = new Entity(0,0,"cube",0xECC599);
+    this.other.graphic.pivot.x = 30;
+    this.other.graphic.pivot.y = 30;
+
+    this.other.setPath(pathThreeTwo.x, pathThreeTwo.y);
+}
+
+
+sceneFourThree.AdditionalUpdate = function() {
+    this.other.vel = this.player.vel;
+    this.other.update();
+    
+    if(this.player.x > 180) {
+        if(this.player.x < 730) {
+            this.player.pos -= (0 + (20 - 0) * ((this.player.x - 180) / (730 - 180))) * game.time.physicsElapsed;
+            this.other.pos -= (0 + (20 - 0) * ((this.player.x - 180) / (730 - 180))) * game.time.physicsElapsed;
+        }
+        else if (this.player.x < 850){
+            this.player.pos -= 20 * game.time.physicsElapsed;
+            this.other.pos -= 20 * game.time.physicsElapsed;
+        }
+
+       
+        this.player.move();
+        this.other.move();
+    }
+}
+
+
+sceneFourThree.AdditionalEnd = function() {
+    this.other.destroy();
+    
+}
+
+
+
+// 1.4
+
+pathOneFour = {x: [1630, 1898, 2013, 2097, 2185, 2391, 2529, 2679, 2763, 2819, 2883, 3001] , y: [374, 297, 307, 360, 397, 356, 309, 272, 286, 326, 350, 344]};
+
+sceneOneFour = new Scene(pathOneFour, "OneOne");
+sceneOneFour.maxVel = 90;
+sceneOneFour.acceleration = 30;
+sceneOneFour.updateTargetAfterEnded = true;
+
+sceneOneFour.AdditionalStart = function() {
+    game.camera.x = 3390;
+    this.targetFollowPos =  3010;
+}
+
+sceneOneFour.AdditionalUpdate = function() {
+     if(this.player.hasEnded) {
+         this.targetFollowPlayer = false;
+         
+         this.targetFollowPos += 250 * game.time.physicsElapsed;
+         this.target.x = this.targetFollowPos + 120;
+     }
+}
+
+// 4.2
+
+pathFourTwo = {x:[36, 163, 263, 357, 459, 585, 718, 815, 911, 995, 1071, 1149, 1259, 1412, 1541, 1674, 1793, 1884, 1985, 2069, 2152, 2253, 2375],y:[273, 321, 349, 374, 397, 413, 383, 335, 285, 277, 309, 345, 354, 296, 270, 313, 346, 358, 333, 307, 277, 265, 254]};
+
+
+pathFourTwoOther = {x: [36, 113, 228, 378, 464, 576, 715, 815, 911, 975, 1036, 1174, 1273, 1430, 1557, 1659, 1806, 1902, 1984, 2068, 2154, 2253, 2375], y: [273, 369, 385, 352, 385, 401, 353, 335, 285, 335, 374, 324, 391, 363, 285, 326, 351, 357, 337, 306, 282, 265, 254]};
+sceneFourTwo = new Scene(pathFourTwo, "FourTwo", sceneOneFour)
+sceneFourTwo.timeToEndAfterEndedPath = 1;
+sceneFourTwo.AdditionalStart = function() {
+    this.other = new Entity(0,0,"cube",0xECC599);
+    this.other.graphic.pivot.x = 30;
+    this.other.graphic.pivot.y = 30;
+
+    this.other.setPath(pathFourTwoOther.x, pathFourTwoOther.y);
+}
+
+sceneFourTwo.AdditionalEnd = function() {
+    this.other.destroy();
+    
+}
+
+sceneFourTwo.AdditionalUpdate = function() {
+    this.other.vel = this.player.vel;
+    this.other.update();
+}
+
+
 // 3.2
 
-pathThreeTwo = {x:[71, 171, 320, 462, 568, 644, 721, 787, 842, 909, 958], y:[1200, 1196, 1140, 1072, 1006, 925, 822, 746, 701, 668, 664]};
-sceneThreeTwo = new Scene(pathThreeTwo,"ThreeTwo");
+
+
+pathThreeTwo = {x:[71, 176, 336, 470, 588, 680, 750, 820, 872, 937, 971], y:[1200, 1217, 1162, 1093, 1021, 933, 843, 766, 719, 691, 689]};
+sceneThreeTwo = new Scene(pathThreeTwo,"ThreeTwo", sceneFourTwo);
 sceneThreeTwo.targetFollowPlayer = false;
 sceneThreeTwo.followTarget = false;
+sceneThreeTwo.updateInputAfterEnded = true;
 
 sceneThreeTwo.AdditionalStart = function(){
     this.travelling = true;
@@ -31,7 +131,7 @@ sceneThreeTwo.AdditionalUpdate = function() {
             this.player.pos -= (0 + (30 - 0) * ((this.player.x - 180) / (730 - 180))) * game.time.physicsElapsed;
             this.player.move();
         }
-        if(this.player.x > 650){
+        if(this.player.x > 690){
             this.player.hasEnded = true;
         }
     }
@@ -40,7 +140,7 @@ sceneThreeTwo.AdditionalUpdate = function() {
 
 // 1.3
 
-sceneOneThree = new Scene(null, "OneOne");
+sceneOneThree = new Scene(null, "OneOne", sceneThreeTwo);
 sceneOneThree.AdditionalStart = function() {
     this.player.x = 3060.52;
     this.player.y =  341.07;

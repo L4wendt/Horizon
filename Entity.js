@@ -123,3 +123,7 @@ Entity.prototype.update = function()
     }
 
 }
+
+Entity.prototype.destroy = function() {
+    this.graphic.destroy();
+}

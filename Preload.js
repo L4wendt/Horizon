@@ -57,6 +57,7 @@ AppStates.loadState.prototype.preload = function() {
     game.load.image("ThreeOne", "./asset/img/Scenes/ThreeOne.png");
     game.load.image("FourOne", "./asset/img/Scenes/FourOne.png");    
     game.load.image("ThreeTwo", "./asset/img/Scenes/ThreeTwo.png"); 
+    game.load.image("FourTwo", "./asset/img/Scenes/FourTwo.png"); 
 
 
    

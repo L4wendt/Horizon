@@ -17,6 +17,7 @@ function Scene( path, scenarySpr, nextScene) {
     this.followTarget = true;
     this.updateTargetAfterEnded = false;
     this.timeToEndAfterEndedPath = 5000;
+    this.updateInputAfterEnded = false;
 }
 
 Scene.prototype.start = function(target, player, game) {
@@ -74,6 +75,10 @@ Scene.prototype.update = function() {
             this.OnEndedPath();
         }
         this.updateWhenEndedPath();
+        
+        if(this.updateInputAfterEnded){
+            this.InputUpdate();
+        }
         if(this.updateTargetAfterEnded) {
             this.TargetUpdate();
         }
