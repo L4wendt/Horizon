@@ -1,5 +1,42 @@
 // Em ordem inversa de aparição
 
+// 3.2
+
+pathThreeTwo = {x:[71, 171, 320, 462, 568, 644, 721, 787, 842, 909, 958], y:[1200, 1196, 1140, 1072, 1006, 925, 822, 746, 701, 668, 664]};
+sceneThreeTwo = new Scene(pathThreeTwo,"ThreeTwo");
+sceneThreeTwo.targetFollowPlayer = false;
+sceneThreeTwo.followTarget = false;
+
+sceneThreeTwo.AdditionalStart = function(){
+    this.travelling = true;
+    this.considerInput = false;
+    this.targetFollowPlayer = false;
+    game.camera.follow(this.target, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+    
+}
+
+sceneThreeTwo.AdditionalUpdate = function() {
+    if(this.travelling) {
+        this.target.x = 510;
+        this.target.y += 320 *game.time.physicsElapsed;
+        if(this.target.y > 960) {
+            this.target.y = 960
+            this.considerInput = true;
+            this.travelling = false;
+        }
+    }
+    else 
+    {
+        if(this.player.x > 180) {
+            this.player.pos -= (0 + (30 - 0) * ((this.player.x - 180) / (730 - 180))) * game.time.physicsElapsed;
+            this.player.move();
+        }
+        if(this.player.x > 650){
+            this.player.hasEnded = true;
+        }
+    }
+    
+}
 
 // 1.3
 
@@ -7,8 +44,8 @@ sceneOneThree = new Scene(null, "OneOne");
 sceneOneThree.AdditionalStart = function() {
     this.player.x = 3060.52;
     this.player.y =  341.07;
-    this.player.graphic.x = 3060.52;
-    this.player.graphic.y =  341.07;
+    this.player.graphic.x =  this.player.x;
+    this.player.graphic.y =  this.player.y;
     
     this.updateTargetAfterEnded = true;
     this.player.hasEnded = true;

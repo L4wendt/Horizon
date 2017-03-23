@@ -24,7 +24,7 @@ AppStates.Game.prototype.create = function () {
     this.target.pivot.x = 30;
 
 
-    this.currentScene = sceneOneOne;
+    this.currentScene = sceneThreeTwo;
     this.currentScene.start(this.target, this.player, this);
     
     this.pause = false;
@@ -62,9 +62,8 @@ AppStates.Game.prototype.update = function () {
 };
 
 AppStates.Game.prototype.nextScene = function(scene){
-    this.currentScene.end();
-    this.currentScene = scene;
-    game.time.events.add(500, this.nextScenept2, this);
+
+    game.time.events.add(1, this.nextScenept2, this, scene);
     game.camera.flash(0x000000,1000,true);
    
 
@@ -72,7 +71,9 @@ AppStates.Game.prototype.nextScene = function(scene){
 }
 
 
-AppStates.Game.prototype.nextScenept2 = function() {
+AppStates.Game.prototype.nextScenept2 = function(scene ) {
+    this.currentScene.end();
+    this.currentScene = scene;
     if(this.currentScene != null)
         this.currentScene.start(this.target, this.player, this);
     

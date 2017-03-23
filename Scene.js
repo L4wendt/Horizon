@@ -45,6 +45,13 @@ Scene.prototype.start = function(target, player, game) {
     
     
     this.AdditionalStart();
+    if(this.targetFollowPlayer)
+        this.target.x = this.player.x + 30;
+    else
+        this.target.x = this.targetFollowPos;
+    
+    if(this.followTarget)
+        game.camera.x = this.target.x - 480;
   
     
 }
@@ -81,7 +88,7 @@ Scene.prototype.update = function() {
     }
 
     this.AdditionalUpdate();
- 
+    
 }
 
 Scene.prototype.InputUpdate = function() {
