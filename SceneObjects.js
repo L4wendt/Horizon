@@ -1,11 +1,53 @@
 // Em ordem inversa de aparição
 
+
 // 1.3
+
+sceneOneThree = new Scene(null, "OneOne");
+sceneOneThree.AdditionalStart = function() {
+    this.player.x = 3060.52;
+    this.player.y =  341.07;
+    this.player.graphic.x = 3060.52;
+    this.player.graphic.y =  341.07;
+    
+    this.updateTargetAfterEnded = true;
+    this.player.hasEnded = true;
+    this.timeToEndAfterEndedPath = 10000;
+    this.targetFollowPos = 3390;
+    this.target.x = 3390;
+    this.targetFollowPlayer = false;
+    
+    //game.camera.unfollow();
+    game.camera.x = 3390 - 480;
+   // game.camera.follow(this.target, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+}
+
+
+// 4.1
+
+pathFourOne = {x:[31, 142, 303, 437, 650, 849, 994, 1068, 1161, 1278, 1395, 1515, 1624, 1761, 1899, 1983],y : [318, 335, 391, 422, 397, 354, 337, 344, 388, 445, 467, 466, 502, 547, 543, 543]};
+
+sceneFourOne = new Scene(pathFourOne, "FourOne", sceneOneThree);
+sceneFourOne.AdditionalStart = function() {
+    this.other = game.add.sprite(2132,542, "cube");
+    this.other.pivot.x = 30;
+    this.other.pivot.y = 30;
+    this.other.tint = 0xECC599;
+}
+
+sceneFourOne.AdditionalEnd = function() {
+    this.other.destroy();
+}
+
+sceneFourOne.timeToEndAfterEndedPath = 2000;
+
+
+// 3.1
 
 pathThreeOne = {x : [-36, 179, 315, 434, 567, 680, 804, 864, 936],
 y :  [108, 264, 303, 356, 437, 497, 527, 578, 666]}
 
-sceneThreeOne = new Scene(pathThreeOne, "ThreeOne");
+sceneThreeOne = new Scene(pathThreeOne, "ThreeOne", sceneFourOne);
 sceneThreeOne.playerWalkAlone = true;
 sceneThreeOne.maxVel = 30;
 sceneThreeOne.followTarget = false;
@@ -22,6 +64,8 @@ sceneThreeOne.AdditionalUpdate = function() {
     }
 }
 
+sceneThreeOne.timeToEndAfterEndedPath = 1;
+
 
 
 
@@ -32,6 +76,8 @@ y : [384, 434, 452, 452, 428, 397, 359, 333, 308, 295, 328, 373, 415, 433, 404, 
 
 sceneOneOne = new Scene(pathOneOne, "OneOne", sceneThreeOne);
 sceneOneOne.updateWhenEndedPath = function() {
-    this.target.x = this.target.x + (3390 - this.target.x) * 0.01;
+    if(this.target.x < 3390)
+        this.target.x += 190 *game.time.physicsElapsed;
+   // this.target.x = this.target.x + (3390 - this.target.x) * 0.01;
 }
 

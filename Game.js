@@ -4,8 +4,11 @@ AppStates.Game = function () {
 
 AppStates.Game.prototype.create = function () {
    
+    game.input.keyboard.addKey(Phaser.Keyboard.F).onUp.add(AppStates.goFull);
     game.time.advancedTiming = true;
     game.time.desiredFps = 60;
+    
+    game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
     
     this.inputs = { right : {}, left : {}, esc : {}, space : {}};
     this.inputs.esc = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
@@ -32,9 +35,13 @@ AppStates.Game.prototype.create = function () {
     //this.renderingGroup.add(this.currentScene.bgWorld);   
    //this.renderingGroup.add(this.player);
   
-
+    game.input.keyboard.addKey(Phaser.Keyboard.C).onUp.add(this.printPos,this);
 
 };
+
+AppStates.Game.prototype.printPos = function() {
+    console.log("pos : " + this.player.x + ", " + this.player.y);
+}
 
 AppStates.Game.prototype.update = function () {
     
@@ -56,9 +63,11 @@ AppStates.Game.prototype.update = function () {
 
 AppStates.Game.prototype.nextScene = function(scene){
     this.currentScene.end();
-    game.camera.flash(0x000000,1000,true);
     this.currentScene = scene;
-    game.time.events.add(900, this.nextScenept2, this);
+    game.time.events.add(500, this.nextScenept2, this);
+    game.camera.flash(0x000000,1000,true);
+   
+
 
 }
 

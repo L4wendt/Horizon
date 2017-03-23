@@ -13,6 +13,7 @@ function Scene( path, scenarySpr, nextScene) {
     this.maxVel = 30
     this.playerWalkAlone = false;
     this.targetFollowPlayer = true;
+    this.targetFollowPos = 480;
     this.followTarget = true;
     this.updateTargetAfterEnded = false;
     this.timeToEndAfterEndedPath = 5000;
@@ -22,10 +23,11 @@ Scene.prototype.start = function(target, player, game) {
     this.HasEndedPath = false;
     this.isStarted = true;
     this.cursors = game.input.keyboard.createCursorKeys();
-    game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+   
     this.target = target;
     this.player = player;
-    player.setPath(this.path.x, this.path.y);
+    if(this.path != null)
+        player.setPath(this.path.x, this.path.y);
     
     if(this.followTarget) {
         game.camera.follow(this.target, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
@@ -98,19 +100,19 @@ Scene.prototype.TargetUpdate = function() {
         if(this.targetFollowPlayer)
             this.target.x = this.player.x - 60;
         else
-            this.target.x = 480 - 60;
+            this.target.x =  this.targetFollowPos - 60;
     }
     else if(this.cursors.right.isDown){
         if(this.targetFollowPlayer)
             this.target.x = this.player.x + 120;
         else
-            this.target.x = 480 + 120;
+            this.target.x = this.targetFollowPos + 120;
     }
     else {
         if(this.targetFollowPlayer)
             this.target.x = this.player.x + 30;
         else
-            this.target.x = 480 + 30;
+            this.target.x = this.targetFollowPos + 30;
     }
 }
 
