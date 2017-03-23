@@ -24,7 +24,7 @@ AppStates.Game.prototype.create = function () {
     this.target.pivot.x = 30;
 
 
-    this.currentScene = sceneFourThree;
+    this.currentScene = sceneFourTwo;
     this.currentScene.start(this.target, this.player, this);
     
     this.pause = false;
@@ -79,6 +79,13 @@ AppStates.Game.prototype.nextScenept2 = function(scene ) {
     this.renderingGroup.destroy(false);
     this.renderingGroup = game.add.group();
     this.renderingGroup.add(this.player.graphic);
+    
+    if(this.currentScene != null) {
+        if(this.currentScene.other != null)
+            this.renderingGroup.add(this.currentScene.other.graphic);
+    }
+      
+ 
 }
 
 

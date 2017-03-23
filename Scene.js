@@ -21,12 +21,14 @@ function Scene( path, scenarySpr, nextScene) {
 }
 
 Scene.prototype.start = function(target, player, game) {
+   
     this.HasEndedPath = false;
     this.isStarted = true;
     this.cursors = game.input.keyboard.createCursorKeys();
    
     this.target = target;
     this.player = player;
+    this.player.vel = 0;
     if(this.path != null)
         player.setPath(this.path.x, this.path.y);
     

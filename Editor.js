@@ -23,10 +23,10 @@ AppStates.Editor.prototype.create = function () {
     this.background = game.add.sprite(0,0,"bg");
     
 
-    this.bgWorld = game.add.sprite(-480,0,"OneOne");
+    this.bgWorld = game.add.sprite(-480,0,"FourTwo");
    // this.bgWorld = game.add.sprite(0,0,"ThreeTwo");
     this.path = new Path(this.bgWorld.width * 1.2, this.bgWorld.height* 1.2);
-    this.path.AddArray(pathOneFour);
+    this.path.AddArray(pathFourTwo);
     
     game.world.setBounds(-480, -480, this.bgWorld.width * 1.2 + 480, this.bgWorld.height* 1.2 + 480);
       

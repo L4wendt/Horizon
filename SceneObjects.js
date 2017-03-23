@@ -51,7 +51,7 @@ sceneFourThree.AdditionalEnd = function() {
 
 pathOneFour = {x: [1630, 1898, 2013, 2097, 2185, 2391, 2529, 2679, 2763, 2819, 2883, 3001] , y: [374, 297, 307, 360, 397, 356, 309, 272, 286, 326, 350, 344]};
 
-sceneOneFour = new Scene(pathOneFour, "OneOne");
+sceneOneFour = new Scene(pathOneFour, "OneOne", sceneFourThree);
 sceneOneFour.maxVel = 90;
 sceneOneFour.acceleration = 30;
 sceneOneFour.updateTargetAfterEnded = true;
@@ -72,10 +72,11 @@ sceneOneFour.AdditionalUpdate = function() {
 
 // 4.2
 
-pathFourTwo = {x:[36, 163, 263, 357, 459, 585, 718, 815, 911, 995, 1071, 1149, 1259, 1412, 1541, 1674, 1793, 1884, 1985, 2069, 2152, 2253, 2375],y:[273, 321, 349, 374, 397, 413, 383, 335, 285, 277, 309, 345, 354, 296, 270, 313, 346, 358, 333, 307, 277, 265, 254]};
+
+pathFourTwoOther = {x:[36, 163, 263, 357, 459, 585, 718, 815, 911, 995, 1071, 1149, 1259, 1412, 1541, 1674, 1793, 1884, 1985, 2069, 2152, 2253, 2341],y:[273, 321, 349, 374, 397, 413, 383, 335, 285, 277, 309, 345, 354, 296, 270, 313, 346, 358, 333, 307, 277, 265, 253]};
 
 
-pathFourTwoOther = {x: [36, 113, 228, 378, 464, 576, 715, 815, 911, 975, 1036, 1174, 1273, 1430, 1557, 1659, 1806, 1902, 1984, 2068, 2154, 2253, 2375], y: [273, 369, 385, 352, 385, 401, 353, 335, 285, 335, 374, 324, 391, 363, 285, 326, 351, 357, 337, 306, 282, 265, 254]};
+pathFourTwo = {x: [102, 263, 357, 459, 585, 718, 815, 911, 995, 1071, 1149, 1259, 1412, 1541, 1674, 1793, 1884, 1985, 2069, 2152, 2253, 2341], y: [321, 349, 374, 397, 413, 383, 335, 285, 277, 309, 345, 354, 296, 270, 313, 346, 358, 333, 307, 277, 265, 253]};
 sceneFourTwo = new Scene(pathFourTwo, "FourTwo", sceneOneFour)
 sceneFourTwo.timeToEndAfterEndedPath = 1;
 sceneFourTwo.AdditionalStart = function() {
@@ -141,6 +142,7 @@ sceneThreeTwo.AdditionalUpdate = function() {
 // 1.3
 
 sceneOneThree = new Scene(null, "OneOne", sceneThreeTwo);
+sceneOneThree.considerInput = false;
 sceneOneThree.AdditionalStart = function() {
     this.player.x = 3060.52;
     this.player.y =  341.07;
