@@ -1,9 +1,42 @@
 // Em ordem inversa de aparição
 
+// 4.4
+pathFourFour = { x : [10, 241, 366, 482, 594, 688, 778, 856, 955, 1060, 1147, 1242, 1340, 1467, 1581, 1723, 1851, 1957, 2024, 2089, 2184, 2300, 2395, 2521, 2668, 2753, 2812, 2884, 2974],
+y : [384, 434, 452, 452, 428, 397, 359, 333, 308, 295, 328, 373, 415, 433, 404, 339, 295, 287, 318, 363, 394, 370, 347, 311, 277, 282, 316, 345, 343]};
+
+
+sceneFourFour = new Scene(pathFourFour, "OneOne");
+sceneFourFour.updateWhenEndedPath = function() {
+    if(this.target.x < 3390)
+        this.target.x += 190 *game.time.physicsElapsed;
+   // this.target.x = this.target.x + (3390 - this.target.x) * 0.01;
+}
+sceneFourFour.AdditionalStart = function(){
+    game.camera.y = 960;
+    
+    this.other = new Entity(0,0,"cube",0xECC599);
+    this.other.graphic.pivot.x = 30;
+    this.other.graphic.pivot.y = 30;
+
+    this.other.setPath(pathOneOne.x, pathOneOne.y);
+}
+
+sceneFourFour.AdditionalUpdate = function() {
+    this.other.vel = this.player.vel;
+    this.other.update();
+
+}
+
+sceneFourFour.AdditionalEnd = function() {
+    this.other.destroy();
+    
+}
+
+
 // 4.3
 
 pathFourThree = {x:[30, 176, 336, 470, 588, 680, 750, 820, 872, 937, 971], y:[1200, 1217, 1162, 1093, 1021, 933, 843, 766, 719, 691, 689]};
-sceneFourThree = new Scene(pathFourThree,"ThreeTwo");
+sceneFourThree = new Scene(pathFourThree,"ThreeTwo", sceneFourFour);
 sceneFourThree.targetFollowPlayer = true;
 sceneFourThree.followTarget = false;
 sceneFourThree.timeToEndAfterEndedPath = 1;

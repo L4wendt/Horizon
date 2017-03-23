@@ -24,7 +24,7 @@ AppStates.Game.prototype.create = function () {
     this.target.pivot.x = 30;
 
 
-    this.currentScene = sceneOneOne;
+    this.currentScene = sceneFourFour;
     this.currentScene.start(this.target, this.player, this);
     
     this.pause = false;
