@@ -168,14 +168,14 @@ pathFourOne = {x:[31, 142, 303, 437, 650, 849, 994, 1068, 1161, 1278, 1395, 1515
 
 sceneFourOne = new Scene(pathFourOne, "FourOne", sceneOneThree);
 sceneFourOne.AdditionalStart = function() {
-    this.other = game.add.sprite(2132,542, "cube");
-    this.other.pivot.x = 30;
-    this.other.pivot.y = 30;
-    this.other.tint = 0xECC599;
+    this.otherSpr = game.add.sprite(2132,542, "cube");
+    this.otherSpr.pivot.x = 30;
+    this.otherSpr.pivot.y = 30;
+    this.otherSpr.tint = 0xECC599;
 }
 
 sceneFourOne.AdditionalEnd = function() {
-    this.other.destroy();
+    this.otherSpr.destroy();
 }
 
 sceneFourOne.timeToEndAfterEndedPath = 2000;
