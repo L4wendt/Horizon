@@ -4,6 +4,8 @@ game.state.add("menu", AppStates.MenuScreen);
 game.state.add("editor", AppStates.Editor);
 game.state.add("game", AppStates.Game);
 game.state.add("error", AppStates.Error);
+game.state.add("end", AppStates.EndGame);
+
 
 
 game.state.start("boot");
