@@ -1,6 +1,6 @@
 # Passo
 Passo is an art game made for a workshop of art games. It is made in Phaser v2.7.3 with javascript.
-You can play it [Here](https://lawendt.itch.io/passo)
+You can play it [here](https://lawendt.itch.io/passo)
 
 ### Creator's Statement
 
