@@ -50,7 +50,9 @@ AppStates.loadState.prototype.preload = function() {
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     
     game.load.image("bg", "./asset/img/BG.png");    
-    game.load.image("cube", "./asset/img/cube60.png");    
+    game.load.image("cube", "./asset/img/cube60.png");   
+    game.load.image("menu", "./asset/img/menu.png"); 
+    game.load.image("arrow", "./asset/img/arrow.png"); 
     game.load.image("dot", "./asset/img/dot.png");
     game.load.image("target", "./asset/img/target.png");
     game.load.image("OneOne", "./asset/img/Scenes/OneOne.png");   
@@ -58,6 +60,7 @@ AppStates.loadState.prototype.preload = function() {
     game.load.image("FourOne", "./asset/img/Scenes/FourOne.png");    
     game.load.image("ThreeTwo", "./asset/img/Scenes/ThreeTwo.png"); 
     game.load.image("FourTwo", "./asset/img/Scenes/FourTwo.png"); 
+ 
 
 
    
@@ -88,6 +91,6 @@ AppStates.loadState.prototype.create = function() {
 AppStates.loadState.prototype.update = function () {
     
     if(AppStates.waitFont || !this.waitForFont) {
-        game.state.start("game");
+        game.state.start("menu");
     }
 }

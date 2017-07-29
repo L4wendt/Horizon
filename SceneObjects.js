@@ -94,6 +94,7 @@ pathOneFour = {x: [1630, 1898, 2013, 2097, 2185, 2391, 2529, 2679, 2763, 2819, 2
 sceneOneFour = new Scene(pathOneFour, "OneOne", sceneFourThree);
 sceneOneFour.maxVel = 90;
 sceneOneFour.acceleration = 30;
+sceneOneFour.stopAcceleration = false;
 sceneOneFour.updateTargetAfterEnded = true;
 
 sceneOneFour.AdditionalStart = function() {
@@ -157,6 +158,7 @@ sceneThreeTwo.AdditionalStart = function(){
 }
 
 sceneThreeTwo.AdditionalUpdate = function() {
+    this.player.x = 30;
     if(this.travelling) {
         this.target.x = 510;
         this.target.y += 320 *game.time.physicsElapsed;

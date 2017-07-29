@@ -25,6 +25,7 @@ Scene.prototype.start = function(target, player, game) {
     this.HasEndedPath = false;
     this.isStarted = true;
     this.cursors = game.input.keyboard.createCursorKeys();
+    this.endKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
    
     this.target = target;
     this.player = player;
@@ -55,7 +56,10 @@ Scene.prototype.start = function(target, player, game) {
     
     if(this.followTarget)
         game.camera.x = this.target.x - 480;
-  
+    
+    this.acceleration = 20;
+    this.maxVel = 30;
+    this.stopAcceleration = true;
     
 }
 
@@ -71,7 +75,7 @@ Scene.prototype.update = function() {
         return;
     this.player.update();
     
-    if(this.player.hasEnded) {
+    if(this.player.hasEnded || this.endKey.isDown) {
         if(!this.HasEndedPath) {
             this.HasEndedPath = true;
             this.OnEndedPath();
@@ -104,7 +108,15 @@ Scene.prototype.InputUpdate = function() {
             this.Walk();
         }
         else{
-            this.player.vel = 0;
+            if(this.acceleration){
+                if(this.stopAcceleration){
+                    this.player.vel -= this.acceleration * 2 * game.time.physicsElapsed;
+                    if(this.player.vel < 0)
+                        this.player.vel = 0;
+                }
+            }
+            else
+                this.player.vel = 0;
         }
     }
 }
@@ -138,7 +150,7 @@ Scene.prototype.Walk = function() {
             if(this.player.vel > this.maxVel) { 
                 this.player.vel = this.maxVel
             }
-        }   
+        }
     }
     else{
          this.player.vel =  this.maxVel;
